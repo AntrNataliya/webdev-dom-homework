@@ -131,6 +131,7 @@
   })
   .join("");
   likeHandler();
+  respondComment();
 };
   
 
@@ -138,7 +139,8 @@
     const likeButtons = document.querySelectorAll(".like-button");
 
     for (const likeButton of likeButtons) {
-      likeButton.addEventListener("click", () => {
+      likeButton.addEventListener("click", (event) => {
+      event.stopPropagation();
       const index = likeButton.dataset.index;
       const comment = commentsGroup[index];
       
@@ -159,9 +161,9 @@ const text = document.getElementById("text-input");
 
 addButton.addEventListener("click", () => {
   const newComment = {
-    name: name.value, 
+    name: sanitizeHTML(name.value), 
     date: new Date(),
-    text: text.value,
+    text: sanitizeHTML(text.value),
     likes: 0,
     isliked: false,
   };
@@ -171,6 +173,19 @@ addButton.addEventListener("click", () => {
   text.value = "";
   renderComments();
 });
+
+function respondComment () {
+  const comments = document.querySelectorAll(".comment");
+  for (const comment of comments) {
+      comment.addEventListener("click", () => {
+      const commentText = comment.querySelector(".comment-text").textContent;
+      text.value = commentText
+    });
+  }
+}
+function sanitizeHTML (str) {
+  return str.replaceAll("&","&amp;").replaceAll ("<","&lt;").replaceAll(">","&gt;")
+}
 
     console.log("It works!");
 </script>
