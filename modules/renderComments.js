@@ -1,4 +1,6 @@
 import { commentsGroup } from "./commentsGroup.js";
+import { respondComment } from "./initListeners.js";
+import { likeHandler } from "./initListeners.js";
 
 export const renderComments = () => {
   const list = document.querySelector(".comments");
@@ -26,6 +28,6 @@ export const renderComments = () => {
     `;
     })
     .join("");
-  likeHandler();
   respondComment();
+  likeHandler();
 };
