@@ -1,4 +1,4 @@
-export const commentsGroup = [
+export let commentsGroup = [
   {
     nameInput: "Глеб Фокин",
     date: new Date(),

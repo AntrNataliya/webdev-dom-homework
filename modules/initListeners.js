@@ -1,44 +1,8 @@
-import { renderComments } from "./renderComments.js";
 import { commentsGroup } from "./commentsGroup.js";
-import { sanitizeHTML } from "./replaceAll.js";
+import { sanitizeHTML } from "./sanitize.js";
+import { renderComments } from "./renderComments.js";
 
-export const addButton = document.querySelector(".add-form-button");
-addButton.addEventListener("click", () => {
-  const nameInput = document.getElementById("name-input");
-  const text = document.getElementById("text-input");
-
-  if (!nameInput.value || !text.value) {
-    alert("Заполните все поля.");
-    return;
-  }
-  const newComment = {
-    nameInput: sanitizeHTML(nameInput.value),
-    date: new Date(),
-    text: sanitizeHTML(text.value),
-    likes: 0,
-    isliked: false,
-  };
-  commentsGroup.push(newComment);
-
-  nameInput.value = "";
-  text.value = "";
-  renderComments();
-});
-
-export function respondComment() {
-  const comments = document.querySelectorAll(".comment");
-  for (const comment of comments) {
-    const text = document.getElementById("text-input");
-
-    comment.addEventListener("click", () => {
-      const commentText = comment.querySelector(".comment-text").textContent;
-      text.value = commentText;
-      // const currentComment = comments[comment.dataset.index];
-      // text.value = `&{newComment.userName}: &{newComment.text}`;
-    });
-  }
-}
-export const likeHandler = () => {
+export const initLikeListeners = (renderComments) => {
   const likeButtons = document.querySelectorAll(".like-button");
 
   for (const likeButton of likeButtons) {
@@ -53,4 +17,42 @@ export const likeHandler = () => {
       renderComments();
     });
   }
+};
+
+export const initReplyListeners = () => {
+  const comments = document.querySelectorAll(".comment");
+  for (const comment of comments) {
+    const text = document.getElementById("text-input");
+    comment.addEventListener("click", () => {
+      const commentText = comment.querySelector(".comment-text").textContent;
+      text.value = commentText;
+      // const currentComment = comments[comment.dataset.index];
+      // text.value = `&{newComment.userName}: &{newComment.text}`;
+    });
+  }
+};
+
+export const initAddCommentListener = () => {
+  const nameInput = document.getElementById("name-input");
+  const text = document.getElementById("text-input");
+  const addButton = document.querySelector(".add-form-button");
+
+  addButton.addEventListener("click", (renderComments) => {
+    if (!nameInput.value || !text.value) {
+      alert("Заполните все поля.");
+      return;
+    }
+    const newComment = {
+      nameInput: sanitizeHTML(nameInput.value),
+      date: new Date(),
+      text: sanitizeHTML(text.value),
+      likes: 0,
+      isliked: false,
+    };
+    commentsGroup.push(newComment);
+
+    nameInput.value = "";
+    text.value = "";
+    renderComments();
+  });
 };
