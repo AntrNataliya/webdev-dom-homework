@@ -37,7 +37,7 @@ export const initAddCommentListener = () => {
   const text = document.getElementById("text-input");
   const addButton = document.querySelector(".add-form-button");
 
-  addButton.addEventListener("click", (renderComments) => {
+  addButton.addEventListener("click", () => {
     if (!nameInput.value || !text.value) {
       alert("Заполните все поля.");
       return;
