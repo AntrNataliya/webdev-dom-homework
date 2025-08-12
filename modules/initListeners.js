@@ -1,6 +1,7 @@
 import { commentsGroup } from "./commentsGroup.js";
 import { sanitizeHTML } from "./sanitize.js";
 import { renderComments } from "./renderComments.js";
+import { postComment } from "./api.js";
 
 export const initLikeListeners = (renderComments) => {
   const likeButtons = document.querySelectorAll(".like-button");
@@ -43,13 +44,10 @@ export const initAddCommentListener = () => {
       return;
     }
     const newComment = {
-      nameInput: sanitizeHTML(nameInput.value),
-      date: new Date(),
+      name: sanitizeHTML(nameInput.value),
       text: sanitizeHTML(text.value),
-      likes: 0,
-      isliked: false,
     };
-    commentsGroup.push(newComment);
+    postComment(newComment);
 
     nameInput.value = "";
     text.value = "";
