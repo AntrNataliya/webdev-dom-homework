@@ -43,11 +43,18 @@ export const initAddCommentListener = () => {
       alert("Заполните все поля.");
       return;
     }
+
+    document.querySelector('.form-loading'").style.display = 'block'
+    document.querySelector('.add-form').style.display = 'none'
+    
     const newComment = {
       name: sanitizeHTML(nameInput.value),
       text: sanitizeHTML(text.value),
     };
-    postComment(newComment);
+    postComment(newComment).then((data) => {
+      document.querySelector('.form-loading'").style.display = 'none'
+    document.querySelector('.add-form').style.display = 'flex'
+    });
 
     nameInput.value = "";
     text.value = "";
