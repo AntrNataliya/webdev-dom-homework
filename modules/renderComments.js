@@ -5,12 +5,11 @@ export const renderComments = () => {
   const list = document.querySelector(".comments");
   list.innerHTML = commentsGroup
     .map((comment, index) => {
-      console.log("comment", comment.nameInput);
       return `
       <li class="comment" data-index="${index}">
         <div class="comment-header">
-          <div>${comment.nameInput}</div>
-          <div>${comment.date.toLocaleDateString()}</div>
+          <div>${comment.author.name}</div>
+          <div>${new Date(comment.date).toLocaleDateString()}</div>
         </div>
         <div class="comment-body">
           <div class="comment-text">

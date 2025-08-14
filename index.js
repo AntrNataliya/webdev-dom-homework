@@ -1,5 +1,3 @@
-import { initAddCommentListener } from "./modules/initListeners.js";
-import { renderComments } from "./modules/renderComments.js";
+import { fetchAndRender } from "./modules/fetchAndRender.js";
 
-renderComments();
-initAddCommentListener(renderComments);
+fetchAndRender();
