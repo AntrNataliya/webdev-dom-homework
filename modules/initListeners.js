@@ -1,4 +1,4 @@
-import { commentsGroup } from "./commentsGroup.js";
+import { commentsGroup, updateComments } from "./commentsGroup.js";
 import { sanitizeHTML } from "./sanitize.js";
 import { renderComments } from "./renderComments.js";
 import { postComment } from "./api.js";
@@ -27,13 +27,13 @@ export const initReplyListeners = () => {
     comment.addEventListener("click", () => {
       const commentText = comment.querySelector(".comment-text").textContent;
       text.value = commentText;
-      // const currentComment = comments[comment.dataset.index];
-      // text.value = `&{newComment.userName}: &{newComment.text}`;
+      const currentComment = comments[comment.dataset.index];
+      text.value = `&{newComment.userName}: &{newComment.text}`;
     });
   }
 };
 
-export const initAddCommentListener = () => {
+export const initAddCommentListener = (renderComments) => {
   const nameInput = document.getElementById("name-input");
   const text = document.getElementById("text-input");
   const addButton = document.querySelector(".add-form-button");
@@ -44,20 +44,25 @@ export const initAddCommentListener = () => {
       return;
     }
 
-    document.querySelector('.form-loading'").style.display = 'block'
-    document.querySelector('.add-form').style.display = 'none'
-    
-    const newComment = {
-      name: sanitizeHTML(nameInput.value),
-      text: sanitizeHTML(text.value),
-    };
-    postComment(newComment).then((data) => {
-      document.querySelector('.form-loading'").style.display = 'none'
-    document.querySelector('.add-form').style.display = 'flex'
-    });
+    document.querySelector(".form-loading").style.display = "block";
+    document.querySelector(".add-form").style.display = "none";
 
-    nameInput.value = "";
-    text.value = "";
-    renderComments();
+    postComment(sanitizeHTML(text.value), sanitizeHTML(nameInput.value)).then(
+      (data) => {
+        document.querySelector(".form-loading").style.display = "none";
+        document.querySelector(".add-form").style.display = "flex";
+
+        updateComments(data);
+        renderComments();
+        nameInput.value = "";
+        text.value = "";
+      }
+    );
+    //     const newComment = {
+    //       name: sanitizeHTML(nameInput.value),
+    //       text: sanitizeHTML(text.value),
+    //     };
+
+    // renderComments();
   });
 };
