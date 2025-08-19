@@ -3,7 +3,7 @@ import { sanitizeHTML } from "./sanitize.js";
 import { renderComments } from "./renderComments.js";
 import { postComment } from "./api.js";
 
-export const initLikeListeners = (renderComments) => {
+export const initLikeListeners = () => {
   const likeButtons = document.querySelectorAll(".like-button");
 
   for (const likeButton of likeButtons) {
@@ -27,8 +27,6 @@ export const initReplyListeners = () => {
     comment.addEventListener("click", () => {
       const commentText = comment.querySelector(".comment-text").textContent;
       text.value = commentText;
-      const currentComment = comments[comment.dataset.index];
-      text.value = `&{newComment.userName}: &{newComment.text}`;
     });
   }
 };
@@ -47,22 +45,29 @@ export const initAddCommentListener = (renderComments) => {
     document.querySelector(".form-loading").style.display = "block";
     document.querySelector(".add-form").style.display = "none";
 
-    postComment(sanitizeHTML(text.value), sanitizeHTML(nameInput.value)).then(
-      (data) => {
+    postComment(sanitizeHTML(nameInput.value), sanitizeHTML(text.value))
+      .then((data) => {
         document.querySelector(".form-loading").style.display = "none";
         document.querySelector(".add-form").style.display = "flex";
 
-        updateComments(data);
-        renderComments();
         nameInput.value = "";
         text.value = "";
-      }
-    );
-    //     const newComment = {
-    //       name: sanitizeHTML(nameInput.value),
-    //       text: sanitizeHTML(text.value),
-    //     };
+      })
+      .catch((error) => {
+        document.querySelector(".form-loading").style.display = "none";
+        document.querySelector(".add-form").style.display = "flex";
 
-    // renderComments();
+        if (error.message === "Faild to fetch") {
+          alert("Нет интернета, попробуйте снова");
+        }
+
+        if (error.message === "Ошибка сервера") {
+          alert("Ошибка сервера");
+        }
+
+        if (error.message === "Неверный запрос") {
+          alert("Имя и комментарий должны быть не короче 3х символов");
+        }
+      });
   });
 };
