@@ -2,8 +2,9 @@ import { commentsGroup } from "./commentsGroup.js";
 import { initLikeListeners, initReplyListeners } from "./initListeners.js";
 
 export const renderComments = () => {
-  const list = document.querySelector(".comments");
-  list.innerHTML = commentsGroup
+  const container = document.querySelector(".container");
+
+  const commentsHtml = commentsGroup
     .map((comment, index) => {
       return `
       <li class="comment" data-index="${index}">
@@ -27,6 +28,30 @@ export const renderComments = () => {
     `;
     })
     .join("");
+
+  const addCommentsHtml = `
+    
+      <div class="add-form">
+        <input
+          type="text"
+          class="add-form-name"
+          id="name-input"
+          placeholder="Введите ваше имя"
+        />
+        <textarea
+          type="textarea"
+          class="add-form-text"
+          placeholder="Введите ваш коментарий"
+          rows="4"
+          id="text-input"
+        ></textarea>
+        <div class="add-form-row">
+          <button class="add-form-button">Написать</button>
+        </div>
+      </div>
+      <div class="form-loading" style="display: none; margin-top: 20px">
+        Комментарий добавляется...>
+      </div>`;
   initLikeListeners();
   initReplyListeners();
 };
