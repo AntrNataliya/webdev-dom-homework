@@ -1,5 +1,7 @@
+import { token } from "./api.js";
 import { commentsGroup } from "./commentsGroup.js";
 import { initLikeListeners, initReplyListeners } from "./initListeners.js";
+import { renderLoginForm } from "./renderLogin.js";
 
 export const renderComments = () => {
   const container = document.querySelector(".container");
@@ -28,9 +30,9 @@ export const renderComments = () => {
     `;
     })
     .join("");
+  const loginLink = `<p> <span class="login-link">Авторизируйтесь</span>, чтобы добавить комментарий</p>`;
 
   const addCommentsHtml = `
-    
       <div class="add-form">
         <input
           type="text"
@@ -52,6 +54,19 @@ export const renderComments = () => {
       <div class="form-loading" style="display: none; margin-top: 20px">
         Комментарий добавляется...>
       </div>`;
-  initLikeListeners();
-  initReplyListeners();
+
+  const baseHtml = `
+  <ul class="comments">${commentsHtml}</ul>
+  ${token ? addCommentsHtml : loginLink}
+  `;
+  container.innerHTML = baseHtml;
+
+  if (token) {
+    initLikeListeners();
+    initReplyListeners();
+  } else {
+    document.querySelector(".login-link").addEventListener("click", () => {
+      renderLoginForm();
+    });
+  }
 };

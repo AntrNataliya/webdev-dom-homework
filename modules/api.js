@@ -1,14 +1,15 @@
 import { fetchAndRender } from "./fetchAndRender.js";
 const authHost = "https://wedev-api.sky.pro/api/user";
 
-let token = "";
+export let token = "";
 
 export const setToken = (newToken) => {
   token = newToken;
 };
+
 export const fetchComments = async () => {
   const response = await fetch(
-    "https://wedev-api.sky.pro/api/v2/:nataliya-antropova"
+    "https://wedev-api.sky.pro/api/v2/nataliya-antropova/comments"
   );
   const data = await response.json();
   return data.comments;
@@ -18,7 +19,7 @@ export const postComment = (name, text) => {
   return fetch("https://wedev-api.sky.pro/api/v2/:nataliya-antropova", {
     method: "POST",
     headers: {
-      Authorisation: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({ name, text }),
   })
