@@ -3,7 +3,7 @@ export const renderLoginForm = () => {
 
   const loginHtml = `
   <form class="login-form">
-    <h1>Форма входа</h1>
+    <h1> Форма входа</h1>
     <input
       type="text"
       class="login-form__login"
