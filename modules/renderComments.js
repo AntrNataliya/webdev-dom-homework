@@ -1,6 +1,10 @@
 import { token } from "./api.js";
 import { commentsGroup } from "./commentsGroup.js";
-import { initLikeListeners, initReplyListeners } from "./initListeners.js";
+import {
+  initAddCommentListener,
+  initLikeListeners,
+  initReplyListeners,
+} from "./initListeners.js";
 import { renderLoginForm } from "./renderLogin.js";
 
 export const renderComments = () => {
@@ -62,8 +66,9 @@ export const renderComments = () => {
   container.innerHTML = baseHtml;
 
   if (token) {
-    initLikeListeners();
+    initLikeListeners(renderComments);
     initReplyListeners();
+    initAddCommentListener(renderComments);
   } else {
     document.querySelector(".login-link").addEventListener("click", () => {
       renderLoginForm();
