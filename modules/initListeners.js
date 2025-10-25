@@ -31,10 +31,10 @@ export const initReplyListeners = () => {
   }
 };
 
-export const initAddCommentListener = (renderComments) => {
+export const initAddCommentListener = () => {
   const nameInput = document.getElementById("name-input");
   const text = document.getElementById("text-input");
-  const addButton = document.querySelector(".add-form-button");
+  const addButton = document.querySelector(".button-main");
 
   addButton.addEventListener("click", () => {
     if (!nameInput.value || !text.value) {
@@ -71,3 +71,4 @@ export const initAddCommentListener = (renderComments) => {
       });
   });
 };
+renderComments();

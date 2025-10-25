@@ -66,9 +66,8 @@ export const renderComments = () => {
   container.innerHTML = baseHtml;
 
   if (token) {
-    initLikeListeners(renderComments);
+    initLikeListeners();
     initReplyListeners();
-    initAddCommentListener(renderComments);
   } else {
     document.querySelector(".login-link").addEventListener("click", () => {
       renderLoginForm();
