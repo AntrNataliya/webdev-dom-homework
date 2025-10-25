@@ -2,9 +2,14 @@ import { fetchAndRender } from "./fetchAndRender.js";
 const authHost = "https://wedev-api.sky.pro/api/user";
 
 export let token = "";
+export let name = "";
 
 export const setToken = (newToken) => {
   token = newToken;
+};
+export const updateName = (newName) => {
+  console.log(newName);
+  name = newName;
 };
 
 export const fetchComments = async () => {

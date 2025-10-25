@@ -1,10 +1,6 @@
 import { token } from "./api.js";
 import { commentsGroup } from "./commentsGroup.js";
-import {
-  initAddCommentListener,
-  initLikeListeners,
-  initReplyListeners,
-} from "./initListeners.js";
+import { initLikeListeners, initReplyListeners } from "./initListeners.js";
 import { renderLoginForm } from "./renderLogin.js";
 
 export const renderComments = () => {
