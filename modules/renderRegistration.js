@@ -1,14 +1,21 @@
-import { login, setToken, setName } from "./api.js";
+import { registration, setName, setToken } from "./api.js";
 import { fetchAndRender } from "./fetchAndRender.js";
 import { renderComments } from "./renderComments.js";
-import { renderRegistrationForm } from "./renderRegistration.js";
+import { renderLoginForm } from "./renderLogin.js";
 
-export const renderLoginForm = () => {
+export const renderRegistrationForm = () => {
   const container = document.querySelector(".container");
 
   const loginHtml = `
   <form class="login-form">
-    <h1> Форма входа</h1>
+    <h1> Форма регистрации</h1>
+     <input
+      type="text"
+      class="login-form__name"
+      placeholder="Введите имя"
+      id="name"
+      required
+    />
     <input
       type="text"
       class="login-form__login"
@@ -23,19 +30,19 @@ export const renderLoginForm = () => {
       id="password"
       required
     ></input>
-    <div class="login-form__button-box">
-      <button class="login-form__button button-main">Войти</button>
-      <ul class="login-form__button-link registry" >
-      Зарегистрироваться
+    <fieldset class="add-form-registry">
+      <button class="login-form__button button-main" type="submit">Зарегистрироваться</button>
+      <ul class="add-form__button-link entry">
+      Войти
       </ul>
-    </div>
-  </form>
+  </fieldset>
    `;
   container.innerHTML = loginHtml;
-
-  document.querySelector(".registry").addEventListener("click", () => {
-    renderRegistrationForm();
+  document.querySelector(".entry").addEventListener("click", () => {
+    renderLoginForm();
   });
+
+  const nameEl = document.querySelector("#name");
   const loginEl = document.querySelector("#login");
   const passwordEl = document.querySelector("#password");
   const enterButtonEl = document.querySelector(".button-main");
@@ -43,15 +50,17 @@ export const renderLoginForm = () => {
     if (!loginEl.value || !passwordEl.value) alert("Заполните все поля.");
     return;
   });
-  enterButtonEl.addEventListener("click", () => {
-    login(loginEl.value, passwordEl.value)
+  submitButtonEl.addEventListener("click", () => {
+    registration(nameEl.value, loginEl.value, passwordEl.value)
       .then((response) => {
         return response.json();
       })
       .then((data) => {
         setToken(data.user.token);
         setName(data.user.name);
+        fetchAndRender();
       });
+
     renderComments();
   });
   // сделать клик по кнопке войти, вызвать ф-ю логин из апи

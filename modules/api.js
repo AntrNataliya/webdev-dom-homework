@@ -7,7 +7,8 @@ export let name = "";
 export const setToken = (newToken) => {
   token = newToken;
 };
-export const updateName = (newName) => {
+
+export const setName = (newName) => {
   console.log(newName);
   name = newName;
 };

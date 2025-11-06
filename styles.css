@@ -137,6 +137,7 @@ body {
 }
 
 .login-form {
+  padding: 48px;
   width: 596px;
   box-sizing: border-box;
   background: radial-gradient(
@@ -153,8 +154,20 @@ body {
   margin-top: 32px;
   margin-bottom: 32px;
 }
-
+.login-form__button {
+  margin-top: 24px;
+  font-size: 24px;
+  padding: 10px 20px;
+  background-color: #bcec30;
+  border: none;
+  border-radius: 18px;
+  cursor: pointer;
+}
 .login-link {
   text-decoration: underline;
   color: #7334ea;
+}
+
+.login-form__button-link {
+  text-decoration: underline;
 }
