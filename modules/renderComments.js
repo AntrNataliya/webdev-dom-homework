@@ -1,9 +1,10 @@
-import { token } from "./api.js";
+import { token, name, postComment } from "./api.js";
 import { commentsGroup } from "./commentsGroup.js";
 import { initLikeListeners, initReplyListeners } from "./initListeners.js";
 import { renderLoginForm } from "./renderLogin.js";
 
 export const renderComments = () => {
+  console.log("token", token);
   const container = document.querySelector(".container");
 
   const commentsHtml = commentsGroup
@@ -41,6 +42,7 @@ export const renderComments = () => {
           placeholder="Введите ваше имя"
           readonly
           value="${name}"
+          disabled
           id="name-input"
         />
         <textarea
@@ -65,6 +67,18 @@ export const renderComments = () => {
   container.innerHTML = baseHtml;
 
   if (token) {
+    const addButton = document.querySelector(".add-form-button");
+
+    addButton.addEventListener("click", () => {
+      const text = document.getElementById("text-input");
+      if (!text.value) {
+        alert("Заполните все поля.");
+        return;
+      }
+      postComment(text.value).then(() => {
+        text.value = "";
+      });
+    });
     initLikeListeners();
     initReplyListeners();
   } else {

@@ -21,13 +21,13 @@ export const fetchComments = async () => {
   return data.comments;
 };
 
-export const postComment = (name, text) => {
-  return fetch("https://wedev-api.sky.pro/api/v2/:nataliya-antropova", {
+export const postComment = (text) => {
+  return fetch("https://wedev-api.sky.pro/api/v2/nataliya-antropova/comments", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ name, text }),
+    body: JSON.stringify({ text }),
   })
     .then((response) => {
       if (response.status === 500) {

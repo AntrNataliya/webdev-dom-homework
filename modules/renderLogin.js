@@ -11,14 +11,14 @@ export const renderLoginForm = () => {
     <h1> Форма входа</h1>
     <input
       type="text"
-      class="login-form__login"
+      class="auth-input"
       placeholder="Введите ваш логин"
       id="login"
       required
     />
     <input 
       type="password"
-      class="login-form__password"
+      class="auth-input"
       placeholder="Введите ваш пароль"
       id="password"
       required
@@ -39,20 +39,23 @@ export const renderLoginForm = () => {
   const loginEl = document.querySelector("#login");
   const passwordEl = document.querySelector("#password");
   const enterButtonEl = document.querySelector(".button-main");
-  enterButtonEl.addEventListener("click", () => {
-    if (!loginEl.value || !passwordEl.value) alert("Заполните все поля.");
-    return;
-  });
-  enterButtonEl.addEventListener("click", () => {
+
+  enterButtonEl.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (!loginEl.value || !passwordEl.value)
+      return alert("Заполните все поля.");
     login(loginEl.value, passwordEl.value)
       .then((response) => {
         return response.json();
       })
       .then((data) => {
+        console.log(data.user.token);
         setToken(data.user.token);
         setName(data.user.name);
+      })
+      .then(() => {
+        renderComments();
       });
-    renderComments();
   });
   // сделать клик по кнопке войти, вызвать ф-ю логин из апи
   // в нее передать то что нах-ся в полях после этого обработать

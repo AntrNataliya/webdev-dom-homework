@@ -106,11 +106,16 @@ body {
   border: none;
 }
 
-.add-form-name {
+.add-form-name,
+.auth-input {
   width: 300px;
   padding: 11px 22px;
 }
-
+.add-form-name:disabled {
+  color: inherit;
+  background-color: inherit;
+  opacity: 1;
+}
 .add-form-text {
   margin-top: 12px;
   padding: 22px;
