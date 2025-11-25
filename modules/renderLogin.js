@@ -1,5 +1,4 @@
 import { login, setToken, setName } from "./api.js";
-import { fetchAndRender } from "./fetchAndRender.js";
 import { renderComments } from "./renderComments.js";
 import { renderRegistrationForm } from "./renderRegistration.js";
 
@@ -65,16 +64,6 @@ export const renderLoginForm = () => {
   // если все успешно то вызвать функцию рендер комментс
   // });
 };
-// export const initAddCommentListener = () => {
-//   const nameInput = document.getElementById("name-input");
-//   const text = document.getElementById("text-input");
-//   const addButton = document.querySelector(".button-main");
-
-//   // addButton.addEventListener("click", () => {
-//   //   if (!nameInput.value || !text.value)
-//   //     alert("Заполните все поля.");
-//   //     return;
-//   //   })
 
 //     document.querySelector(".form-loading").style.display = "block";
 //     document.querySelector(".add-form").style.display = "none";
