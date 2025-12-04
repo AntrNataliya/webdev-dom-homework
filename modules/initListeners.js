@@ -1,6 +1,5 @@
-import { commentsGroup, updateComments } from "./commentsGroup.js";
+import { commentsGroup } from "./commentsGroup.js";
 import { renderComments } from "./renderComments.js";
-
 export const initLikeListeners = () => {
   const likeButtons = document.querySelectorAll(".like-button");
 
