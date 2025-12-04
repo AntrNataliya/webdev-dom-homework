@@ -23,8 +23,6 @@ export const initReplyListeners = () => {
   for (const comment of comments) {
     const text = document.getElementById("text-input");
     comment.addEventListener("click", () => {
-      // const commentText = comment.querySelector(".comment-text").textContent;
-
       const commentText = comment.querySelector(".comment-text").textContent;
       text.value = commentText;
       const authorName = comment.querySelector(".author-name").textContent;

@@ -1,6 +1,3 @@
-import { registration, setName, setToken } from "./api.js";
-import { fetchAndRender } from "./fetchAndRender.js";
-import { renderComments } from "./renderComments.js";
 import { renderLoginForm } from "./renderLogin.js";
 
 export const renderRegistrationForm = () => {
@@ -23,7 +20,7 @@ export const renderRegistrationForm = () => {
       id="login"
       required
     />
-    <input 
+    <input
       type="password"
       class="login-form__password"
       placeholder="Введите ваш пароль"
@@ -42,25 +39,12 @@ export const renderRegistrationForm = () => {
     renderLoginForm();
   });
 
-  const nameEl = document.querySelector("#name");
+  // const nameEl = document.querySelector("#name");
   const loginEl = document.querySelector("#login");
   const passwordEl = document.querySelector("#password");
   const enterButtonEl = document.querySelector(".button-main");
   enterButtonEl.addEventListener("click", () => {
     if (!loginEl.value || !passwordEl.value) alert("Заполните все поля.");
     return;
-  });
-  submitButtonEl.addEventListener("click", () => {
-    registration(nameEl.value, loginEl.value, passwordEl.value)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setToken(data.user.token);
-        setName(data.user.name);
-        fetchAndRender();
-      });
-
-    renderComments();
   });
 };
