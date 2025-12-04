@@ -57,6 +57,16 @@ export const login = (login, password) => {
   return fetch(authHost + "/login", {
     method: "POST",
     body: JSON.stringify({ login: login, password: password }),
+  }).then((response) => {
+    if (!response.ok) {
+      if (response.status === 400) {
+        throw new Error("Неверно введен пароль или логин");
+      }
+      if (response.status === 500) {
+        throw new Error("Сервер сломался");
+      }
+    }
+    return response.json();
   });
 };
 

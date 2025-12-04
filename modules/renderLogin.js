@@ -44,9 +44,6 @@ export const renderLoginForm = () => {
     if (!loginEl.value || !passwordEl.value)
       return alert("Заполните все поля.");
     login(loginEl.value, passwordEl.value)
-      .then((response) => {
-        return response.json();
-      })
       .then((data) => {
         console.log(data.user.token);
         setToken(data.user.token);
@@ -54,43 +51,7 @@ export const renderLoginForm = () => {
       })
       .then(() => {
         renderComments();
-      });
+      })
+      .catch((error) => alert(error.message));
   });
-  // сделать клик по кнопке войти, вызвать ф-ю логин из апи
-  // в нее передать то что нах-ся в полях после этого обработать
-  // ответ от сервера апи и сохранить токен и имя пользователя.
-  // Сделать переменную имя и вызвать функцию сет неим обработка ошибок,
-  //  если ввел неправ логин или пароль
-  // если все успешно то вызвать функцию рендер комментс
-  // });
 };
-
-//     document.querySelector(".form-loading").style.display = "block";
-//     document.querySelector(".add-form").style.display = "none";
-
-//     postComment(sanitizeHTML(nameInput.value), sanitizeHTML(text.value))
-//       .then((data) => {
-//         document.querySelector(".form-loading").style.display = "none";
-//         document.querySelector(".add-form").style.display = "flex";
-
-//         nameInput.value = "";
-//         text.value = "";
-//       })
-//       .catch((error) => {
-//         document.querySelector(".form-loading").style.display = "none";
-//         document.querySelector(".add-form").style.display = "flex";
-
-//         if (error.message === "Faild to fetch") {
-//           alert("Нет интернета, попробуйте снова");
-//         }
-
-//         if (error.message === "Ошибка сервера") {
-//           alert("Ошибка сервера");
-//         }
-
-//         if (error.message === "Неверный запрос") {
-//           alert("Имя и комментарий должны быть не короче 3х символов");
-//         }
-//       });
-//   }
-// };
