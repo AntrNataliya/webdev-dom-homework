@@ -1,8 +1,6 @@
 import { commentsGroup } from "./commentsGroup.js";
-import { sanitizeHTML } from "./sanitize.js";
 import { renderComments } from "./renderComments.js";
-
-export const initLikeListeners = (renderComments) => {
+export const initLikeListeners = () => {
   const likeButtons = document.querySelectorAll(".like-button");
 
   for (const likeButton of likeButtons) {
@@ -26,33 +24,9 @@ export const initReplyListeners = () => {
     comment.addEventListener("click", () => {
       const commentText = comment.querySelector(".comment-text").textContent;
       text.value = commentText;
-      // const currentComment = comments[comment.dataset.index];
-      // text.value = `&{newComment.userName}: &{newComment.text}`;
+      const authorName = comment.querySelector(".author-name").textContent;
+      const formattedText = `"${authorName},${commentText}"`;
+      text.value = formattedText;
     });
   }
-};
-
-export const initAddCommentListener = () => {
-  const nameInput = document.getElementById("name-input");
-  const text = document.getElementById("text-input");
-  const addButton = document.querySelector(".add-form-button");
-
-  addButton.addEventListener("click", () => {
-    if (!nameInput.value || !text.value) {
-      alert("Заполните все поля.");
-      return;
-    }
-    const newComment = {
-      nameInput: sanitizeHTML(nameInput.value),
-      date: new Date(),
-      text: sanitizeHTML(text.value),
-      likes: 0,
-      isliked: false,
-    };
-    commentsGroup.push(newComment);
-
-    nameInput.value = "";
-    text.value = "";
-    renderComments();
-  });
 };

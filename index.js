@@ -1,5 +1,6 @@
-import { initAddCommentListener } from "./modules/initListeners.js";
-import { renderComments } from "./modules/renderComments.js";
+import { fetchAndRender } from "./modules/fetchAndRender.js";
 
-renderComments();
-initAddCommentListener(renderComments);
+// document.querySelector(".comments").innerHTML =
+//   "Пожалуйста подождите, загружаю комментарии...";
+
+fetchAndRender();
